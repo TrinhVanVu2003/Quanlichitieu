@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="#F3F2F2"
+    android:layout_height="wrap_content"
+    tools:context=".fragment.HistoryFragment">
+
+    <ListView
+        android:divider="@android:color/transparent"
+        android:layout_margin="10dp"
+        android:dividerHeight="16dp"
+        android:id="@+id/ListViewGiaoDich"
+        android:layout_width="match_parent"
+        tools:listitem="@layout/custom_lisviewgiaodich"
+        android:layout_height="match_parent" />
+</FrameLayout>
