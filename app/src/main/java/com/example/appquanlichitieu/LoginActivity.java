@@ -10,11 +10,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
     EditText edtUsername , edtPassword ;
-    Button btnLogin, btnSignUp ;
+    Button btnLogin ;
+    TextView tvDangki;
    // CheckBox mCheckboxRememberMe;
     MyDatabase myDatabase;
     @Override
@@ -24,10 +26,10 @@ public class LoginActivity extends AppCompatActivity {
         edtUsername = findViewById(R.id.edtUsername);
         edtPassword = findViewById(R.id.edtPassword);
         btnLogin = findViewById(R.id.btnLogin);
-        btnSignUp = findViewById(R.id.btnSignup);
+        tvDangki = findViewById(R.id.tvDangki);
         myDatabase = new MyDatabase(this);
         //mCheckboxRememberMe =(CheckBox) findViewById(R.id.chkRememberMe);
-        btnSignUp.setOnClickListener(new View.OnClickListener() {
+        tvDangki.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity.this,SignUpActivity.class);
