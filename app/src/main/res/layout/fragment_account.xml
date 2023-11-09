@@ -184,4 +184,17 @@
             android:layout_marginLeft="100dp"
             android:src="@drawable/next" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btnDangxuat"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="604dp"
+        android:layout_marginEnd="106dp"
+        android:layout_marginRight="106dp"
+        android:background="@drawable/custombuttondangxuat"
+        android:text="Đăng xuất" />
 </RelativeLayout>
