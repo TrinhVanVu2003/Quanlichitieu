@@ -2,22 +2,26 @@ package com.example.appquanlichitieu.fragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.appquanlichitieu.Add.ViewPagerAdapterBC;
 import com.example.appquanlichitieu.LoginActivity;
 import com.example.appquanlichitieu.MyDatabase;
 import com.example.appquanlichitieu.R;
+import com.example.appquanlichitieu.widget.CustomViewPager;
 
 
 public class HomeFragment extends Fragment {
-    TextView tvKhoanThu, tvKhoanChi, tvSoDu, tvUsername;
-    MyDatabase database;
-
+    TabLayout tabLayout;
+    CustomViewPager viewPager;
+    View mView;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -32,19 +36,38 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
       View view= inflater.inflate(R.layout.fragment_home, container, false);
-      tvKhoanChi = view.findViewById(R.id.tvChi);
-      tvKhoanThu = view.findViewById(R.id.tvThu);
-      tvSoDu = view.findViewById(R.id.tvSoDu);
+        // Tạo ViewPager
+        ViewPager viewPager = view.findViewById(R.id.viewPager);
+        ViewPagerAdapterBC pagerAdapter = new ViewPagerAdapterBC(getChildFragmentManager());
+        viewPager.setAdapter(pagerAdapter);
 
+        // Tạo TabLayout và liên kết với ViewPager
+        TabLayout tabLayout = view.findViewById(R.id.tabLayout);
+        tabLayout.setupWithViewPager(viewPager);
 
-      database = new MyDatabase(getActivity());
-      int totalKhoanThu= database.getTotalKhoanThu();
-      int totalKhoanChi = database.getTotalKhoanChi();
-      int totalSoDu = totalKhoanThu - totalKhoanChi;
+        View tabOne = getLayoutInflater().inflate(R.layout.custom_tab, null);
+        TextView tab1 = tabOne.findViewById(R.id.tabText);
+        tab1.setText("Tuần");
+        tabLayout.getTabAt(0).setCustomView(tabOne);
 
-      tvSoDu.setText(String.valueOf(totalSoDu));
-      tvKhoanThu.setText(String.valueOf(totalKhoanThu));
-      tvKhoanChi.setText(String.valueOf(totalKhoanChi));
+        // Tạo custom view cho Tab 2
+        View tabTwo = getLayoutInflater().inflate(R.layout.custom_tab, null);
+        TextView tab2 = tabTwo.findViewById(R.id.tabText);
+        tab2.setText("Tháng");
+        tabLayout.getTabAt(1).setCustomView(tabTwo);
+//      tvKhoanChi = view.findViewById(R.id.tvChi);
+//      tvKhoanThu = view.findViewById(R.id.tvThu);
+//      tvSoDu = view.findViewById(R.id.tvSoDu);
+//
+//
+//      database = new MyDatabase(getActivity());
+//      int totalKhoanThu= database.getTotalKhoanThu();
+//      int totalKhoanChi = database.getTotalKhoanChi();
+//      int totalSoDu = totalKhoanThu - totalKhoanChi;
+//
+//      tvSoDu.setText(String.valueOf(totalSoDu));
+//      tvKhoanThu.setText(String.valueOf(totalKhoanThu));
+//      tvKhoanChi.setText(String.valueOf(totalKhoanChi));
 
       return view;
     }
