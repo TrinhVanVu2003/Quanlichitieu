@@ -1,6 +1,7 @@
 package com.example.appquanlichitieu.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import com.example.appquanlichitieu.Add.ViewPagerAdapterBC;
 import com.example.appquanlichitieu.LoginActivity;
 import com.example.appquanlichitieu.MyDatabase;
 import com.example.appquanlichitieu.R;
+import com.example.appquanlichitieu.WalletActivity;
 import com.example.appquanlichitieu.widget.CustomViewPager;
 
 
@@ -22,20 +24,27 @@ public class HomeFragment extends Fragment {
     TabLayout tabLayout;
     CustomViewPager viewPager;
     View mView;
+    TextView tvXemvi;
 
     public HomeFragment() {
         // Required empty public constructor
     }
-
-
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
       View view= inflater.inflate(R.layout.fragment_home, container, false);
+
+        tvXemvi = view.findViewById(R.id.tvXemVi);
+        tvXemvi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), WalletActivity.class);
+                startActivity(intent);
+            }
+        });
+
         // Tạo ViewPager
         ViewPager viewPager = view.findViewById(R.id.viewPager);
         ViewPagerAdapterBC pagerAdapter = new ViewPagerAdapterBC(getChildFragmentManager());
@@ -55,6 +64,8 @@ public class HomeFragment extends Fragment {
         TextView tab2 = tabTwo.findViewById(R.id.tabText);
         tab2.setText("Tháng");
         tabLayout.getTabAt(1).setCustomView(tabTwo);
+
+
 //      tvKhoanChi = view.findViewById(R.id.tvChi);
 //      tvKhoanThu = view.findViewById(R.id.tvThu);
 //      tvSoDu = view.findViewById(R.id.tvSoDu);

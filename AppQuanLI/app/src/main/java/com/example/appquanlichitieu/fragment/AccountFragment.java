@@ -9,12 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.appquanlichitieu.LoginActivity;
 import com.example.appquanlichitieu.R;
+import com.example.appquanlichitieu.WalletActivity;
 
 public class AccountFragment extends Fragment {
     Button btnDangxuat;
+    TextView tvVicuatoi;
 
     // Khai báo các biến liên quan
     private static final String PREFS_NAME = "MyPrefsFile";
@@ -31,7 +34,17 @@ public class AccountFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_account, container, false);
+        tvVicuatoi = view.findViewById(R.id.tvVicuatoi);
         btnDangxuat = view.findViewById(R.id.btnDangxuat);
+
+        tvVicuatoi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), WalletActivity.class);
+                startActivity(intent);
+            }
+        });
+
         btnDangxuat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
