@@ -48,7 +48,7 @@
 
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/imageView2a"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:src="@drawable/wallet" />
@@ -66,7 +66,7 @@
 
         <ImageView
             android:layout_marginLeft="170dp"
-            android:id="@+id/imageView7"
+            android:id="@+id/imageView7a"
             android:layout_width="20dp"
             android:layout_height="match_parent"
             android:src="@drawable/next" />
@@ -86,7 +86,7 @@
 
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/imageView2213213"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:src="@drawable/iconcategories" />
@@ -103,7 +103,7 @@
             android:textSize="20dp" />
 
         <ImageView
-            android:id="@+id/imageView7"
+            android:id="@+id/imageView7dsad"
             android:layout_width="20dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="165dp"
@@ -124,7 +124,7 @@
 
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/imageView232321"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:src="@drawable/setting" />
@@ -141,7 +141,7 @@
             android:textSize="20dp" />
 
         <ImageView
-            android:id="@+id/imageView7"
+            android:id="@+id/imageView7đâsdads"
             android:layout_width="20dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="190dp"
@@ -161,7 +161,7 @@
 
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/imageView2231"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:src="@drawable/askeddd" />
@@ -178,7 +178,7 @@
             android:textSize="20dp" />
 
         <ImageView
-            android:id="@+id/imageView7"
+            android:id="@+id/imageView7sffs"
             android:layout_width="20dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="100dp"
