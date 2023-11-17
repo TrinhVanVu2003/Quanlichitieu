@@ -19,12 +19,26 @@ public class MyDatabase {
     public MyDatabase(Context context) {
         dbHelper = new DBHelper(context);
         database = dbHelper.getWritableDatabase();
-        database = dbHelper.getReadableDatabase();
+//        database = dbHelper.getReadableDatabase();
     }
     public MyDatabase() {
 
     }
 
+
+
+    // thêm ví
+    public void addWalletToDatabase(Wallet wallet){
+        ContentValues values = new ContentValues();
+        values.put(DBHelper.COT_WALLET_NAME,wallet.getWalletName());
+        values.put(DBHelper.COT_CURRENCY_NAME,wallet.getWalletCurrency());
+        values.put(DBHelper.COT_WALLET_CURRENCY_CODE,wallet.getCurrencyCode());
+        values.put(DBHelper.COT_BALANCE,wallet.getBalance());
+        values.put(DBHelper.COT_USERID,wallet.getUserID());
+
+        database.insert(DBHelper.TEN_BANG_WALLET,null,values);
+        database.close();
+    }
     // thêm dữ liệu
     public int ThemDanhMuc(String tenDanhMuc) {
         try (SQLiteDatabase db = dbHelper.getWritableDatabase()) {
@@ -37,10 +51,6 @@ public class MyDatabase {
             return -1;
         }
     }
-
-    // thêm ví
-//    public void addWalletToDatabase(W)
-
 
     public List<DanhMuc> getAllMaDanhMuc(Context context) {
         List<DanhMuc> list = new ArrayList<>();
@@ -110,6 +120,23 @@ public class MyDatabase {
         return cursor;
     }
 
+    // Trong lớp MyDatabase
+    public int getUserIDByUsername(String username) {
+        int userID = -1;
+
+        String[] columns = {DBHelper.COT_ID};
+        String selection = DBHelper.COT_USERNAME + "=?";
+        String[] selectionArgs = {username};
+
+        Cursor cursor = database.query(DBHelper.TEN_BANG_USER, columns, selection, selectionArgs, null, null, null);
+
+        if (cursor.moveToFirst()) {
+            userID = cursor.getInt(cursor.getColumnIndex(DBHelper.COT_ID));
+        }
+
+        cursor.close();
+        return userID;
+    }
 
     public long ThemGiaoDich(GiaoDich giaoDich){
         ContentValues contentValues = new ContentValues();

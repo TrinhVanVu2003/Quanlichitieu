@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DBHelper extends SQLiteOpenHelper {
     private static final String TEN_DATABASE= "QuanLiChiTieu.db";
@@ -81,9 +82,10 @@ public class DBHelper extends SQLiteOpenHelper {
             + COT_ISKHOANTHU + " integer, "
             + COT_DATE + " text, "
             + COT_ID_DANHMUC + " integer, "
-            + COT_ID_USER_GD + "integer, "
+            + COT_ID_USER_GD + " integer, "  // Thêm một khoảng trắng sau COT_ID_USER_GD
             + " foreign key (" + COT_ID_USER_GD + ") REFERENCES " + TEN_BANG_USER
-            + "(" + COT_ID + "))";
+            + " (" + COT_ID + "))";
+
 
     public static final String TAO_BANG_DANHMUC = ""
             + " create table " + TEN_BANG_DANHMUC + " ( "
@@ -96,10 +98,13 @@ public class DBHelper extends SQLiteOpenHelper {
             + COT_WALLET_ID + " integer primary key autoincrement, "
             + COT_WALLET_NAME + " text, "
             + COT_BALANCE + " real, "
-            + COT_CURRENCY_CODE + " text, "
+            + COT_CURRENCY_NAME + " text, "
             + COT_USERID + " integer, "
+            + COT_WALLET_CURRENCY_CODE + " text, "  // Thêm cột WalletCurrencyCode
             + " foreign key (" + COT_USERID + ") REFERENCES " + TEN_BANG_USER
-            + "(" + COT_ID + "))";
+            + "(" + COT_ID + "));";
+
+
 
     public static final String TAO_BANG_REPORT = ""
             + " create table " + TEN_BANG_REPORT + " ( "
@@ -154,6 +159,7 @@ public class DBHelper extends SQLiteOpenHelper {
         MyDB.execSQL("DROP TABLE IF EXISTS " + TEN_BANG_REPORT);
         MyDB.execSQL("DROP TABLE IF EXISTS " + TEN_BANG_WALLET);
         MyDB.execSQL("DROP TABLE IF EXISTS " + TEN_BANG_SAVINGS);
+
     }
 
 }

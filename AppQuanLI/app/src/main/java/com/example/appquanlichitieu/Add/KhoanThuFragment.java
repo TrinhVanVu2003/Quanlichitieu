@@ -104,7 +104,6 @@ public class KhoanThuFragment extends Fragment implements DatePickerDialog.OnDat
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 DanhMuc danhMuc = (DanhMuc) parent.getItemAtPosition(position);
-                database.XoaDanhMuc(danhMuc);
                 danhMucList.remove(position);
                 spnDanhMuc.setSelection(0);
                 danhMucAdapter.notifyDataSetChanged();

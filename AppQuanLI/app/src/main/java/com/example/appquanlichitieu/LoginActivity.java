@@ -79,6 +79,10 @@ public class LoginActivity extends AppCompatActivity {
                             editor.putString(PREF_PASSWORD, password);
                             editor.putBoolean(PREF_REMEMBER_ME, true);
                             editor.apply();
+                            int userID = myDatabase.getUserIDByUsername(username);
+                            UserManager userManager = new UserManager(LoginActivity.this);
+                            userManager.setCurrentUserID(userID);
+
                         }
 
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
