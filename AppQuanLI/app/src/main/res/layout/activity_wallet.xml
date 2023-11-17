@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#DFDFDF"
+    android:background="#ECECEC"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".WalletActivity">
@@ -18,7 +18,7 @@
                 android:id="@+id/imgBack"
                 android:layout_width="30sp"
                 android:layout_height="30sp"
-                app:srcCompat="@drawable/back" />
+                app:srcCompat="@drawable/img_back" />
 
             <TextView
                 android:layout_marginTop="10dp"
@@ -68,7 +68,7 @@
                 android:id="@+id/imageView3"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                app:srcCompat="@drawable/global" />
+                app:srcCompat="@drawable/img_global" />
 
 
                 <TextView

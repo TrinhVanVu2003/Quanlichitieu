@@ -18,7 +18,7 @@
             android:id="@+id/imgBackCur"
             android:layout_width="30sp"
             android:layout_height="30sp"
-            app:srcCompat="@drawable/back" />
+            app:srcCompat="@drawable/img_back" />
 
         <TextView
             android:layout_marginTop="10dp"

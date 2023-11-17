@@ -43,6 +43,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COT_USERID ="_id_user";
     public static final String COT_BALANCE = "_balance";
     public static final String COT_WALLET_NAME = "_WalletName";
+    public static final String COT_WALLET_CURRENCY_CODE ="WalletCurrencyCode";
 
     //Cot bảng sổ tiết kiệm
     public static final String COT_SAVINGS_ID = "_SavingsID";
@@ -95,6 +96,7 @@ public class DBHelper extends SQLiteOpenHelper {
             + COT_WALLET_ID + " integer primary key autoincrement, "
             + COT_WALLET_NAME + " text, "
             + COT_BALANCE + " real, "
+            + COT_CURRENCY_CODE + " text, "
             + COT_USERID + " integer, "
             + " foreign key (" + COT_USERID + ") REFERENCES " + TEN_BANG_USER
             + "(" + COT_ID + "))";

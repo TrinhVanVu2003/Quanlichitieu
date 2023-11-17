@@ -14,7 +14,9 @@ import com.example.appquanlichitieu.Currency.CurrencyActivity;
 public class AddWalletActivity extends AppCompatActivity {
     ImageView imgback;
     TextView tvChonDonViTien;
+    TextView tvSoTienHienCo;
     private static final int REQUEST_CODE_SELECT_CURRENCY = 1;
+    private static final int REQUEST_CODE_CALCULATOR = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,23 +37,53 @@ public class AddWalletActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+        tvSoTienHienCo = findViewById(R.id.tvSotienhienco);
+        tvSoTienHienCo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddWalletActivity.this , CaculatorActivity.class);
+                startActivityForResult(intent, REQUEST_CODE_CALCULATOR);
+            }
+        });
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == REQUEST_CODE_SELECT_CURRENCY && resultCode == RESULT_OK) {
-            if (data != null) {
-                String currencyName = data.getStringExtra("currencyName");
-                String currencyCode = data.getStringExtra("currencyCode");
-
-                // Update TextViews in activity_add_wallet
-                TextView tvCurrencyNameAdd = findViewById(R.id.tvChonDonViTien);
-                TextView tvCurrencyCodeAdd = findViewById(R.id.tvCurrencyCodeAdd);
-
-                tvCurrencyNameAdd.setText(currencyName);
-                tvCurrencyCodeAdd.setText(currencyCode);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == REQUEST_CODE_SELECT_CURRENCY) {
+                handleCurrencyActivityResult(data);
+            } else if (requestCode == REQUEST_CODE_CALCULATOR) {
+                handleCalculatorActivityResult(data);
             }
         }
     }
+
+    private void handleCurrencyActivityResult(Intent data) {
+        if (data != null) {
+            String currencyName = data.getStringExtra("currencyName");
+            String currencyCode = data.getStringExtra("currencyCode");
+
+            TextView tvCurrencyNameAdd = findViewById(R.id.tvChonDonViTien);
+            TextView tvCurrencyCodeAdd = findViewById(R.id.tvCurrencyCodeAdd);
+
+            tvCurrencyNameAdd.setText(currencyName);
+            tvCurrencyCodeAdd.setText(currencyCode);
+        }
+    }
+
+    private void handleCalculatorActivityResult(Intent data) {
+        if (data != null) {
+            String calculatedResult = data.getStringExtra("calculatedResult");
+
+            // Cập nhật TextView trong AddWalletActivity
+            TextView tvBalancee = findViewById(R.id.tvBalancee);
+            tvBalancee.setText(calculatedResult);
+        }
+    }
+
+
+
 }

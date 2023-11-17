@@ -17,7 +17,7 @@
                 android:id="@+id/imgBackadd"
                 android:layout_width="30sp"
                 android:layout_height="30sp"
-                app:srcCompat="@drawable/back" />
+                app:srcCompat="@drawable/img_back" />
 
             <TextView
                 android:layout_marginTop="10dp"
@@ -56,7 +56,7 @@
 
             <TextView
                 android:layout_marginLeft="100dp"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:layout_marginTop="150dp"
                 android:id="@+id/tvSotienhienco"
                 android:layout_width="wrap_content"
@@ -94,14 +94,14 @@
                 android:text="Đơn vị tiền tệ" />
 
             <TextView
-                android:layout_marginLeft="150dp"
-                android:textSize="30dp"
-                android:layout_marginTop="200dp"
-                android:textColor="@color/black"
                 android:id="@+id/tvBalancee"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0" />
+                android:layout_marginLeft="150dp"
+                android:layout_marginTop="200dp"
+                android:text="0"
+                android:textColor="@color/black"
+                android:textSize="30dp" />
 
             <TextView
                 android:textSize="20sp"

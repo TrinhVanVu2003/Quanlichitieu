@@ -38,6 +38,8 @@ public class MyDatabase {
         }
     }
 
+    // thêm ví
+//    public void addWalletToDatabase(W)
 
 
     public List<DanhMuc> getAllMaDanhMuc(Context context) {
@@ -81,13 +83,6 @@ public class MyDatabase {
         }
         return list;
     }
-
-    public long XoaDanhMuc(DanhMuc danhMuc){
-        String whereClause = DBHelper.COT_TENDANHMUC + "=?"; // điều kiện xóa
-        String[] whereArgs = new String[] { danhMuc.get_tendanhmuc() }; // mảng chỉ có giá trị tên danh mục
-        return database.delete(DBHelper.TEN_BANG_DANHMUC, whereClause, whereArgs);
-    }
-
 
     public Cursor LayDuLieuGiaoDich(){
         //biến cot là khai báo danh sách các cột cần lấy.
