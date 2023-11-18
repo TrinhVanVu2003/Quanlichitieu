@@ -43,6 +43,7 @@ public class CurrencyAdapter extends RecyclerView.Adapter<CurrencyAdapter.Curren
         currencyViewHolder.imgNation.setImageResource(currency.getCurrencyIMG());
         currencyViewHolder.tvCurrency.setText(currency.getCurrencyName());
         currencyViewHolder.tvCurrencyCode.setText(currency.getCurrencyCode());
+
         currencyViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

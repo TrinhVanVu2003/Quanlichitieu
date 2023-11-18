@@ -6,12 +6,16 @@ import android.service.controls.actions.FloatAction;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
 public class WalletActivity extends AppCompatActivity {
     ImageView imgBack ;
     FloatingActionButton btnAdd ;
+    RecyclerView rcvWallet;
+    MyDatabase database;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +36,16 @@ public class WalletActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+        rcvWallet = findViewById(R.id.rcv_wallet);
+        WalletAdapter walletAdapter = new WalletAdapter(this);
+
+        LinearLayoutManager linearLayoutManager= new LinearLayoutManager(this);
+        rcvWallet.setLayoutManager(linearLayoutManager);
+
+        MyDatabase database = new MyDatabase(WalletActivity.this);
+        walletAdapter.setData(database.getListWallet());
+        rcvWallet.setAdapter(walletAdapter);
 
     }
 }
