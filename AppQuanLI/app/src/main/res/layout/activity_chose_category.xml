@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/xammm"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChoseCategoryActivity">
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="60dp" >
+
+        <ImageView
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="13dp"
+            android:id="@+id/imgBackChoseCate"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
+            app:srcCompat="@drawable/img_back" />
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="25dp"
+            android:layout_marginLeft="80dp"
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chọn nhóm" />
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:textSize="25dp"
+            android:layout_marginLeft="320dp"
+            android:id="@+id/tvLuu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lưu" />
+    </android.support.v7.widget.CardView>
+</LinearLayout>
