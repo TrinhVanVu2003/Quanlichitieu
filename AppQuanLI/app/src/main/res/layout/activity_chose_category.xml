@@ -2,41 +2,73 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/xammm"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/xammm"
+    android:orientation="vertical"
     tools:context=".ChoseCategoryActivity">
+
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="60dp" >
+        android:layout_height="60dp">
 
         <ImageView
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="13dp"
             android:id="@+id/imgBackChoseCate"
             android:layout_width="30sp"
             android:layout_height="30sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="13dp"
             app:srcCompat="@drawable/img_back" />
 
         <TextView
-            android:layout_marginTop="10dp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:textSize="25dp"
-            android:layout_marginLeft="80dp"
             android:id="@+id/textView13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Chọn nhóm" />
-
-        <TextView
+            android:layout_marginLeft="80dp"
             android:layout_marginTop="10dp"
+            android:text="Chọn nhóm"
             android:textColor="@color/black"
             android:textSize="25dp"
-            android:layout_marginLeft="320dp"
+            android:textStyle="bold" />
+
+        <TextView
             android:id="@+id/tvLuu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Lưu" />
+            android:layout_marginLeft="320dp"
+            android:layout_marginTop="10dp"
+            android:text="Lưu"
+            android:textColor="@color/black"
+            android:textSize="25dp" />
+
     </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="370dp"
+        android:layout_height="556dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        app:cardCornerRadius="24dp">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="55dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_view_card_tab"
+            app:tabGravity="center"
+            app:tabIndicator="@drawable/indicator_tab"
+            app:tabIndicatorAnimationDuration="@android:integer/config_shortAnimTime"
+            app:tabIndicatorGravity="stretch"
+            app:tabMinWidth="300dp"
+            app:tabMode="fixed" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="497dp"
+            android:layout_marginTop="60dp" />
+    </android.support.v7.widget.CardView>
+
 </LinearLayout>

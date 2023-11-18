@@ -1,7 +1,7 @@
-# *Welcome to Money Mate 👋**
+# **Welcome to Money Mate 👋**
                 *Môn học: Đồ án phần mềm*
 
- ## **🤷‍♂️ Money Mate là gì ?**
+ ## 🤷‍♂️ *Money Mate là gì ?*
  `Money Mate` là một ứng dụng di động quản lí tài chính hiệu quả, cho phép người dùng có thể quản lí chi tiêu cá nhân một các dễ dàng và tiện lợi. Với giao diện thân thiện và tính năng linh hoạt, Money Mate mang đến trải nghiệm quản lý tài chính cá nhân thông minh và thuận tiện.
  
  
@@ -10,7 +10,10 @@
 
 ## Danh sách các chức năng của ứng dụng
 > Hiện tại ứng dụng chỉ mới có phân quyền cho 1 vai trò là người dùng.
+
+
 1. Chức năng người dùng
+
    - Thêm ví mới
    - Xem danh sách của ví
    - Thêm giao dịch
@@ -22,6 +25,7 @@
    - Giao dịch
    - Thống kê và báo cáo
 2. Chức năng chung cho hệ thống
+
      - Đăng nhập
      - Đăng kí
      - Quên mật khẩu
