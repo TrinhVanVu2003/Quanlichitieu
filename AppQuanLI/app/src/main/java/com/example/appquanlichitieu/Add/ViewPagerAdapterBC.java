@@ -31,9 +31,9 @@ public class ViewPagerAdapterBC extends FragmentPagerAdapter {
     public Fragment getItem(int i) {
         switch (i) {
             case 0:
-                return new TuanFragment(); // Tạo fragment cho Tab 1
+                return new TuanFragment();
             case 1:
-                return new ThangFragment(); // Tạo fragment cho Tab 2
+                return new ThangFragment();
             default:
                 return null;
         }

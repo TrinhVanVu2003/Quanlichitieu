@@ -1,4 +1,4 @@
-package com.example.appquanlichitieu;
+package com.example.appquanlichitieu.Wallet;
 
 public class Wallet {
     private int walletID;

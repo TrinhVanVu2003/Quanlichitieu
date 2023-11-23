@@ -16,7 +16,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String TEN_BANG_WALLET = "Wallet";
     public static final String TEN_BANG_SAVINGS = "Savings";
     public static final String TEN_BANG_REPORT = "Report";
-    public static final String TEN_BANG_CURRENCY = "Currency";
+
 
 
     //Cot bang user
@@ -29,9 +29,9 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COT_CATEGORY = "_category";
     public static final String COT_GHICHU = "_ghichu";
     public static final String COT_AMOUNT = "_amount";
-    public static final String COT_ISKHOANTHU = "_iskhoanthu";
     public static final String COT_DATE = "_date";
     public static final String COT_ID_USER_GD = "id_user_giaodich";
+    public static final String COT_CATE_ID = "_CateID";
 
     //Cot bang danh muc
     public static final String COT_ID_DANHMUC ="id_danhmuc";
@@ -45,6 +45,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COT_BALANCE = "_balance";
     public static final String COT_WALLET_NAME = "_WalletName";
     public static final String COT_WALLET_CURRENCY_CODE ="WalletCurrencyCode";
+    public static final String COT_TRANSACTION_ID ="_TransactionID";
 
     //Cot bảng sổ tiết kiệm
     public static final String COT_SAVINGS_ID = "_SavingsID";
@@ -74,17 +75,18 @@ public class DBHelper extends SQLiteOpenHelper {
                  + COT_PASSWORD + " text not null );";
 
     public static final String TAO_BANG_GIAO_DICH = ""
-            + " create table " + TEN_BANG_GIAODICH + " ( "
-            + COT_ID_GIAODICH + " integer primary key autoincrement, "
-            + COT_CATEGORY + " text not null, "
-            + COT_AMOUNT + " real, "
-            + COT_GHICHU + " text, "
-            + COT_ISKHOANTHU + " integer, "
-            + COT_DATE + " text, "
-            + COT_ID_DANHMUC + " integer, "
-            + COT_ID_USER_GD + " integer, "  // Thêm một khoảng trắng sau COT_ID_USER_GD
-            + " foreign key (" + COT_ID_USER_GD + ") REFERENCES " + TEN_BANG_USER
-            + " (" + COT_ID + "))";
+            + "CREATE TABLE " + TEN_BANG_GIAODICH + " ( "
+            + COT_ID_GIAODICH + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + COT_CATEGORY + " TEXT NOT NULL, "
+            + COT_AMOUNT + " REAL, "
+            + COT_GHICHU + " TEXT, "
+            + COT_DATE + " TEXT, "
+            + COT_CATE_ID + " INTEGER, "
+            + COT_ID_USER_GD + " INTEGER, "
+            + "FOREIGN KEY (" + COT_CATE_ID + ") REFERENCES " + TEN_BANG_DANHMUC
+            + " (" + COT_ID_DANHMUC + "), "
+            + "FOREIGN KEY (" + COT_ID_USER_GD + ") REFERENCES " + TEN_BANG_USER
+            + " (" + COT_ID + "));";
 
 
     public static final String TAO_BANG_DANHMUC = ""
@@ -97,10 +99,13 @@ public class DBHelper extends SQLiteOpenHelper {
             + " create table " + TEN_BANG_WALLET + " ( "
             + COT_WALLET_ID + " integer primary key autoincrement, "
             + COT_WALLET_NAME + " text, "
-            + COT_BALANCE + " real, "
+            + COT_BALANCE + " text, "
             + COT_CURRENCY_NAME + " text, "
+            + COT_TRANSACTION_ID + " integer, "
             + COT_USERID + " integer, "
-            + COT_WALLET_CURRENCY_CODE + " text, "  // Thêm cột WalletCurrencyCode
+            + COT_WALLET_CURRENCY_CODE + " text, "
+            + " foreign key (" + COT_TRANSACTION_ID + ") REFERENCES " + TEN_BANG_GIAODICH
+            + " (" + COT_ID_GIAODICH + "), "
             + " foreign key (" + COT_USERID + ") REFERENCES " + TEN_BANG_USER
             + "(" + COT_ID + "));";
 
@@ -128,12 +133,6 @@ public class DBHelper extends SQLiteOpenHelper {
             + " foreign key (" + COT_UID + ") REFERENCES " + TEN_BANG_USER
             + "(" + COT_ID + "))";
 
-    public static final String TAO_BANG_CURRENCY = ""
-            + " create table " + TEN_BANG_CURRENCY + " ( "
-            + COT_CURRENCY_ID + " integer primary key autoincrement, "
-            + COT_CURRENCY_CODE + " text, "
-            + COT_CURRENCY_NAME + " text );";
-
     public DBHelper( Context context) {
         super(context, TEN_DATABASE, null, 1);
     }
@@ -147,7 +146,6 @@ public class DBHelper extends SQLiteOpenHelper {
         MyDB.execSQL(TAO_BANG_WALLET);
         MyDB.execSQL(TAO_BANG_REPORT);
         MyDB.execSQL(TAO_BANG_SAVINGS);
-        MyDB.execSQL(TAO_BANG_CURRENCY);
     }
 
     @Override
@@ -155,7 +153,6 @@ public class DBHelper extends SQLiteOpenHelper {
         MyDB.execSQL("DROP TABLE IF EXISTS " + TEN_BANG_USER);
         MyDB.execSQL("DROP TABLE IF EXISTS " + TEN_BANG_GIAODICH);
         MyDB.execSQL("DROP TABLE IF EXISTS " + TEN_BANG_DANHMUC);
-        MyDB.execSQL("DROP TABLE IF EXISTS " + TEN_BANG_CURRENCY);
         MyDB.execSQL("DROP TABLE IF EXISTS " + TEN_BANG_REPORT);
         MyDB.execSQL("DROP TABLE IF EXISTS " + TEN_BANG_WALLET);
         MyDB.execSQL("DROP TABLE IF EXISTS " + TEN_BANG_SAVINGS);

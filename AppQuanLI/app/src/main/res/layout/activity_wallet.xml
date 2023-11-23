@@ -6,7 +6,7 @@
     android:background="#ECECEC"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".WalletActivity">
+    tools:context=".Wallet.WalletActivity">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -88,7 +88,7 @@
                     android:id="@+id/tvTotalBalance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="20.000 đ" />
+                    android:text="85.390.000 đ" />
         </android.support.v7.widget.CardView>
 
     </LinearLayout>

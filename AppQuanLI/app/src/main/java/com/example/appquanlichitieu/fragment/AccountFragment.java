@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.example.appquanlichitieu.LoginActivity;
 import com.example.appquanlichitieu.R;
-import com.example.appquanlichitieu.WalletActivity;
+import com.example.appquanlichitieu.Wallet.WalletActivity;
 
 public class AccountFragment extends Fragment {
     Button btnDangxuat;

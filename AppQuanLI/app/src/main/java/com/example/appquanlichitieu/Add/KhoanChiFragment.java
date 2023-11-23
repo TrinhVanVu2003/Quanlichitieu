@@ -249,7 +249,7 @@ public class KhoanChiFragment extends Fragment implements DatePickerDialog.OnDat
                 GiaoDich giaoDich = new GiaoDich();
                 giaoDich.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(DBHelper.COT_ID_GIAODICH))));
                 giaoDich.setAmount(Integer.parseInt(cursor.getString(cursor.getColumnIndex(DBHelper.COT_AMOUNT))));
-                giaoDich.setIsKhoanThu(Integer.parseInt(cursor.getString(cursor.getColumnIndex(DBHelper.COT_ISKHOANTHU))));
+
                 giaoDich.setDate(cursor.getString(cursor.getColumnIndex(DBHelper.COT_DATE)));
                 giaoDich.setCategory(cursor.getString(cursor.getColumnIndex(DBHelper.COT_CATEGORY)));
                 giaoDich.setGhiChu(cursor.getString(cursor.getColumnIndex(DBHelper.COT_GHICHU)));

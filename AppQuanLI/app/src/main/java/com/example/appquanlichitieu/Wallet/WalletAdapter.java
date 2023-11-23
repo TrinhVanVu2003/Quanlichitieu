@@ -1,4 +1,4 @@
-package com.example.appquanlichitieu;
+package com.example.appquanlichitieu.Wallet;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -8,8 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.appquanlichitieu.Currency.Currency;
-import com.example.appquanlichitieu.RecycleViewCurrency.CurrencyAdapter;
+import com.example.appquanlichitieu.R;
 
 import java.util.List;
 

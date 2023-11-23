@@ -1,17 +1,12 @@
 package com.example.appquanlichitieu.Add;
 
-import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
-import com.example.appquanlichitieu.R;
-import com.example.appquanlichitieu.fragment.ThangFragment;
-import com.example.appquanlichitieu.fragment.TuanFragment;
+import com.example.appquanlichitieu.Category.ExpensiveFragment;
+import com.example.appquanlichitieu.Category.IcomeFragment;
 
 
 public class ViewPagerAdapterChoseCate extends FragmentPagerAdapter {
@@ -31,9 +26,9 @@ public class ViewPagerAdapterChoseCate extends FragmentPagerAdapter {
     public Fragment getItem(int i) {
         switch (i) {
             case 0:
-                return new TuanFragment(); // Tạo fragment cho Tab 1
+                return new IcomeFragment(); // Tạo fragment cho Tab 1
             case 1:
-                return new ThangFragment(); // Tạo fragment cho Tab 2
+                return new ExpensiveFragment(); // Tạo fragment cho Tab 2
             default:
                 return null;
         }
@@ -43,11 +38,11 @@ public class ViewPagerAdapterChoseCate extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position){
             case 0:
-                return "Tuần";
+                return "Khoản thu";
             case 1:
-                return "Tháng";
+                return "Khoản chi";
             default:
-                return "Tuần";
+                return "Khoản thu";
 
         }
     }

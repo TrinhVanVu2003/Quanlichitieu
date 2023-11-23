@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.example.appquanlichitieu.Add.DanhMuc;
+import com.example.appquanlichitieu.Wallet.Wallet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,54 @@ public class MyDatabase {
 
     }
 
+    public double getTotalBalance() {
+        double total = 0;
 
+        Cursor cursor = database.rawQuery("SELECT * FROM " + DBHelper.TEN_BANG_WALLET, null);
+
+        while (cursor.moveToNext()) {
+            String balanceStr = cursor.getString(cursor.getColumnIndex(DBHelper.COT_BALANCE));
+
+            // Loại bỏ dấu "," khỏi chuỗi số tiền
+            balanceStr = balanceStr.replace(",", "");
+
+            double balance = Double.parseDouble(balanceStr);
+
+            String currencyCode = cursor.getString(cursor.getColumnIndex(DBHelper.COT_WALLET_CURRENCY_CODE));
+
+            if (!"VND".equals(currencyCode)) {
+                double exchangeRate = getExchangeRate(currencyCode, "VND"); // Lấy tỷ giá chuyển đổi
+                balance *= exchangeRate;
+            }
+
+            total += balance;
+        }
+
+        cursor.close();
+        return total;
+    }
+
+
+
+    private double getExchangeRate(String fromCurrency, String toCurrency) {
+        // Giả sử tỷ giá chuyển đổi
+        double usdToVndRate = 22000;
+        double cnyToVndRate = 3300;
+
+        // Kiểm tra từ đơn vị tiền tệ và đến đơn vị tiền tệ để xác định tỷ giá chuyển đổi
+        if ("USD".equals(fromCurrency) && "VND".equals(toCurrency)) {
+            return usdToVndRate;
+        } else if ("CNY".equals(fromCurrency) && "VND".equals(toCurrency)) {
+            return cnyToVndRate;
+        } else if ("VND".equals(fromCurrency) && "USD".equals(toCurrency)) {
+            return 1 / usdToVndRate;
+        } else if ("VND".equals(fromCurrency) && "CNY".equals(toCurrency)) {
+            return 1 / cnyToVndRate;
+        } else {
+            // Trong trường hợp không biết tỷ giá, trả về 1 (giữ nguyên số tiền)
+            return 1;
+        }
+    }
     // thêm ví
     public void addWalletToDatabase(Wallet wallet) {
         ContentValues values = new ContentValues();
@@ -81,7 +129,6 @@ public class MyDatabase {
                 GiaoDich giaoDich = new GiaoDich();
                 giaoDich.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(DBHelper.COT_ID_GIAODICH))));
                 giaoDich.setAmount((int) cursor.getDouble(cursor.getColumnIndex(DBHelper.COT_AMOUNT)));
-                giaoDich.setIsKhoanThu(Integer.parseInt(cursor.getString(cursor.getColumnIndex(DBHelper.COT_ISKHOANTHU))));
                 giaoDich.setDate(cursor.getString(cursor.getColumnIndex(DBHelper.COT_DATE)));
                 giaoDich.setCategory(cursor.getString(cursor.getColumnIndex(DBHelper.COT_CATEGORY)));
                 giaoDich.setGhiChu(cursor.getString(cursor.getColumnIndex(DBHelper.COT_GHICHU)));
@@ -100,7 +147,6 @@ public class MyDatabase {
         String[] cot = {DBHelper.COT_ID_GIAODICH,
                 DBHelper.COT_CATEGORY,
                 DBHelper.COT_DATE,
-                DBHelper.COT_ISKHOANTHU,
                 DBHelper.COT_GHICHU,
                 DBHelper.COT_AMOUNT};
         /*
@@ -152,7 +198,7 @@ public class MyDatabase {
     public int getTotalKhoanThu() {
         int total = 0;
 
-        Cursor cursor = database.rawQuery("SELECT SUM(" + DBHelper.COT_AMOUNT + ") FROM " + DBHelper.TEN_BANG_GIAODICH + " WHERE " + DBHelper.COT_ISKHOANTHU + " = 1", null);
+        Cursor cursor = database.rawQuery("SELECT SUM(" + DBHelper.COT_AMOUNT + ") FROM " + DBHelper.TEN_BANG_GIAODICH , null);
         if (cursor.moveToFirst()) {
             total = cursor.getInt(0);
         }
@@ -162,7 +208,7 @@ public class MyDatabase {
 
     public int getTotalKhoanChi() {
         int total = 0;
-        Cursor cursor = database.rawQuery("SELECT SUM(" + DBHelper.COT_AMOUNT + ") FROM " + DBHelper.TEN_BANG_GIAODICH + " WHERE " + DBHelper.COT_ISKHOANTHU + " = 0", null);
+        Cursor cursor = database.rawQuery("SELECT SUM(" + DBHelper.COT_AMOUNT + ") FROM " + DBHelper.TEN_BANG_GIAODICH, null);
         if (cursor.moveToFirst()) {
             total = cursor.getInt(0);
         }

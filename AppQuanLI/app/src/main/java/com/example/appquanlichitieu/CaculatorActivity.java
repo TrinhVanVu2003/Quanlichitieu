@@ -52,7 +52,7 @@ public class CaculatorActivity extends AppCompatActivity {
         tvWorking.setText(workings);
     }
     public void equalOnclick(View view) {
-        DecimalFormat decimalFormat = new DecimalFormat("#,###,###");
+        DecimalFormat decimalFormat = new DecimalFormat("#,###.###");
 
         Double result = null;
         ScriptEngine engine = new ScriptEngineManager().getEngineByName("rhino");

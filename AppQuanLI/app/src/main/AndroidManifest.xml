@@ -29,13 +29,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AddTransaction"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".CaculatorActivity"
             android:exported="false">
             <meta-data
@@ -50,14 +43,14 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".AddWalletActivity"
+            android:name=".Wallet.AddWalletActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".WalletActivity"
+            android:name=".Wallet.WalletActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

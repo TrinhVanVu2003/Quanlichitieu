@@ -1,6 +1,5 @@
 package com.example.appquanlichitieu.fragment;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -9,22 +8,22 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.appquanlichitieu.Add.ViewPagerAdapterBC;
-import com.example.appquanlichitieu.LoginActivity;
 import com.example.appquanlichitieu.MyDatabase;
 import com.example.appquanlichitieu.R;
-import com.example.appquanlichitieu.WalletActivity;
+import com.example.appquanlichitieu.Wallet.WalletActivity;
 import com.example.appquanlichitieu.widget.CustomViewPager;
 
+import java.text.DecimalFormat;
 
-public class HomeFragment extends Fragment {
+
+public class HomeFragment extends Fragment  {
     TabLayout tabLayout;
     CustomViewPager viewPager;
     View mView;
-    TextView tvXemvi;
+    TextView tvXemvi, tvSodu;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -35,6 +34,7 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
       View view= inflater.inflate(R.layout.fragment_home, container, false);
+        tvSodu = view.findViewById(R.id.tvSoDu);
 
         tvXemvi = view.findViewById(R.id.tvXemVi);
         tvXemvi.setOnClickListener(new View.OnClickListener() {
@@ -44,6 +44,11 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        MyDatabase database = new MyDatabase(getActivity());
+        double TotalBalance = database.getTotalBalance();
+        String currencyCode = "VND"; // Chọn loại tiền tệ mặc định (VND)
+        String formattedTotalBalance = formatCurrency(TotalBalance, currencyCode);
+        tvSodu.setText(formattedTotalBalance);
 
         // Tạo ViewPager
         ViewPager viewPager = view.findViewById(R.id.viewPager);
@@ -82,4 +87,22 @@ public class HomeFragment extends Fragment {
 
       return view;
     }
+    private String formatCurrency(double amount, String currencyCode) {
+        DecimalFormat decimalFormat;
+
+        if ("VND".equals(currencyCode)) {
+            decimalFormat = new DecimalFormat("#,### VND");
+        } else if ("USD".equals(currencyCode)) {
+            decimalFormat = new DecimalFormat("#,### USD");
+        } else if ("CNY".equals(currencyCode)) {
+            decimalFormat = new DecimalFormat("#,### CNY");
+        } else {
+            // Nếu loại tiền tệ không xác định, sử dụng định dạng mặc định
+            decimalFormat = new DecimalFormat("#,###");
+        }
+
+        return decimalFormat.format(amount);
+    }
+    // chọn thời gian
+
 }

@@ -1,7 +1,6 @@
-package com.example.appquanlichitieu;
+package com.example.appquanlichitieu.Wallet;
 
 import android.content.Intent;
-import android.media.Image;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,7 +10,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.appquanlichitieu.CaculatorActivity;
 import com.example.appquanlichitieu.Currency.CurrencyActivity;
+import com.example.appquanlichitieu.MyDatabase;
+import com.example.appquanlichitieu.R;
+import com.example.appquanlichitieu.UserManager;
 
 public class AddWalletActivity extends AppCompatActivity {
     ImageView imgback;
@@ -77,7 +80,6 @@ public class AddWalletActivity extends AppCompatActivity {
                 if (areAllFieldsFilled()) {
                     Wallet wallet = getDataFromAddWallet();
 
-                    // Pass the context to MyDatabase constructor
                     MyDatabase database = new MyDatabase(AddWalletActivity.this);
 
                     database.addWalletToDatabase(wallet);
@@ -148,7 +150,6 @@ public class AddWalletActivity extends AppCompatActivity {
         String currency = tvChonDonViTien.getText().toString().trim();
         String balance = tvBalance.getText().toString().trim();
 
-        // Add any additional validation logic here if needed
         return !walletName.isEmpty() && !currency.isEmpty() && !balance.isEmpty();
     }
 
