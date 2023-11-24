@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,15 +58,29 @@ public class IcomeFragment extends Fragment {
 
     }
 
-    private List<Category> getListIncomeCate(){
-        List<Category> list = new ArrayList<>();
-        list.add(new Category(1,R.drawable.img_salary,"Lương","Khoản thu"));
-        list.add(new Category(1,R.drawable.img_sell,"Bán xe","Khoản thu"));
-        if (database != null) {
-            database.addCategories(list);
-        } else {
+    private List<Category> getListIncomeCate() {
+        List<Category> categories = new ArrayList<>();
+        categories.add(new Category(1, R.drawable.img_salary, "Lương", "Khoản thu"));
+        categories.add(new Category(2, R.drawable.img_sell, "Bán xe", "Khoản thu"));
 
+        database = new MyDatabase(getActivity());
+
+        // Log để kiểm tra dữ liệu trong categories
+        for (Category category : categories) {
+            Log.d("CategoryData", "Category ID: " + category.getCategoryID() +
+                    ", Name: " + category.getCategoryName() +
+                    ", Type: " + category.getCategoryType());
         }
-        return list;
+
+        // Kiểm tra xem có lỗi gì khi thêm danh mục vào cơ sở dữ liệu không
+        if (database != null) {
+            database.addCategories(categories);
+        } else {
+            Log.e("DatabaseError", "Database is null");
+        }
+
+        return categories;
     }
+
+
 }

@@ -142,25 +142,58 @@ public class MyDatabase {
         database.close();
     }
     public void addCategories(List<Category> categories) {
+        SQLiteDatabase database = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
 
         try {
             for (Category category : categories) {
-                values.put(DBHelper.COT_ID_DANHMUC, category.getCategoryID());
-                values.put(DBHelper.COT_TENDANHMUC, category.getCategoryName());
-                values.put(DBHelper.COT_TYPE, category.getCategoryType());
-                values.put(DBHelper.COT_IMG_DANHMUC, category.getCategoryIMG());
+                // Kiểm tra xem giá trị ID đã tồn tại trong cơ sở dữ liệu chưa
+                if (!isCategoryIDExists(database, category.getCategoryID())) {
+                    values.put(DBHelper.COT_ID_DANHMUC, category.getCategoryID());
+                    values.put(DBHelper.COT_TENDANHMUC, category.getCategoryName());
+                    values.put(DBHelper.COT_TYPE, category.getCategoryType());
+                    values.put(DBHelper.COT_IMG_DANHMUC, category.getCategoryIMG());
+                    database.insert(DBHelper.TEN_BANG_DANHMUC, null, values);
+                } else {
+                    // Nếu giá trị ID đã tồn tại, bạn có thể xử lý hoặc bỏ qua
+                    Log.e("DuplicateCategoryID", "Category with ID " + category.getCategoryID() + " already exists.");
+                }
 
-                database.insert(DBHelper.TEN_BANG_DANHMUC, null, values);
+                // Nếu cần, có thể log hoặc xử lý giá trị đã được thêm vào cơ sở dữ liệu
+                Log.d("CategoryData", "Category ID: " + category.getCategoryID() +
+                        ", Name: " + category.getCategoryName() +
+                        ", IMG: " + category.getCategoryIMG() +
+                        ", Type: " + category.getCategoryType());
 
-                // Reset lại values để sử dụng cho danh mục tiếp theo
+                // Đặt giá trị về rỗng để chuẩn bị cho lần lặp tiếp theo
                 values.clear();
             }
         } finally {
-            // Đảm bảo rằng cơ sở dữ liệu được đóng ngay cả khi có lỗi
-            database.close();
+            if (database != null && database.isOpen()) {
+                database.close();
+            }
         }
     }
+
+    // Hàm kiểm tra xem giá trị ID đã tồn tại trong cơ sở dữ liệu chưa
+    private boolean isCategoryIDExists(SQLiteDatabase database, int categoryID) {
+        String query = "SELECT COUNT(*) FROM " + DBHelper.TEN_BANG_DANHMUC + " WHERE " + DBHelper.COT_ID_DANHMUC + " = " + categoryID;
+        Cursor cursor = database.rawQuery(query, null);
+
+        int count = 0;
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                count = cursor.getInt(0);
+            }
+            cursor.close();
+        }
+
+        return count > 0;
+    }
+
+
+
+
 
     // thêm dữ liệu
     public int ThemDanhMuc(String tenDanhMuc) {
@@ -336,6 +369,53 @@ public class MyDatabase {
     }
 
     // Các phương thức khác
+    // lấy danh sách giao dịch từ cơ sở dữ liệu
+    public List<Transacion> getListTransactions() {
+        List<Transacion> transactions = new ArrayList<>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        String query = "SELECT "
+                + DBHelper.TEN_BANG_GIAODICH + "." + DBHelper.COT_ID_GIAODICH + ", "
+                + DBHelper.TEN_BANG_GIAODICH + "." + DBHelper.COT_ID_USER_GD + ", "
+                + DBHelper.TEN_BANG_GIAODICH + "." + DBHelper.COT_GHICHU + ", "
+                + DBHelper.TEN_BANG_GIAODICH + "." + DBHelper.COT_WALLET_NAMEE + ", "
+                + DBHelper.TEN_BANG_GIAODICH + "." + DBHelper.COT_AMOUNT + ", "
+                + DBHelper.TEN_BANG_GIAODICH + "." + DBHelper.COT_DATE + ", "
+                + DBHelper.TEN_BANG_DANHMUC + "." + DBHelper.COT_TENDANHMUC + " AS " + "categoryName, "
+                + DBHelper.TEN_BANG_DANHMUC + "." + DBHelper.COT_ID_DANHMUC + " AS " + "categoryID, "
+                + DBHelper.TEN_BANG_DANHMUC + "." + DBHelper.COT_TYPE + " AS " + "type, "
+                + DBHelper.TEN_BANG_GIAODICH + "." + DBHelper.COT_WALLET_ID_TRANS + " AS " + "walletID"
+                + " FROM " + DBHelper.TEN_BANG_GIAODICH
+                + " LEFT JOIN " + DBHelper.TEN_BANG_DANHMUC
+                + " ON " + DBHelper.TEN_BANG_GIAODICH + "." + DBHelper.COT_CATE_ID + " = " + DBHelper.TEN_BANG_DANHMUC + "." + DBHelper.COT_ID_DANHMUC;
+
+        Cursor cursor = db.rawQuery(query, null);
+
+
+        if (cursor.moveToFirst()) {
+            do {
+                int transactionID = cursor.getInt(cursor.getColumnIndex(DBHelper.COT_ID_GIAODICH));
+                String note = cursor.getString(cursor.getColumnIndex(DBHelper.COT_GHICHU));
+                String walletName = cursor.getString(cursor.getColumnIndex(DBHelper.COT_WALLET_NAMEE));
+                double amount = cursor.getDouble(cursor.getColumnIndex(DBHelper.COT_AMOUNT));
+                String date = cursor.getString(cursor.getColumnIndex(DBHelper.COT_DATE));
+                String categoryName = cursor.getString(cursor.getColumnIndex("categoryName"));
+                int categoryID = cursor.getInt(cursor.getColumnIndex("categoryID"));
+                int walletID = cursor.getInt(cursor.getColumnIndex("walletID"));
+                int UserID  = cursor.getInt(cursor.getColumnIndex(DBHelper.COT_ID_USER_GD));
+                String type = cursor.getString(cursor.getColumnIndex("type"));
+
+                Transacion transaction = new Transacion(transactionID, date, amount, note, categoryName, type,walletName,categoryID, walletID,UserID);
+                transactions.add(transaction);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return transactions;
+    }
+
 
     // Lấy danh sách ví từ cơ sở dữ liệu
     public List<Wallet> getListWallet() {

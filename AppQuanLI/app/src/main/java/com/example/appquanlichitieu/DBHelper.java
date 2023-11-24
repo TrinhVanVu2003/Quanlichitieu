@@ -28,7 +28,6 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COT_ID_GIAODICH = "id_giaodich";
     public static final String COT_CATEGORY = "_category";
     public static final String COT_WALLET_NAMEE = "_walletnamee";
-
     public static final String COT_GHICHU = "_ghichu";
     public static final String COT_AMOUNT = "_amount";
     public static final String COT_DATE = "_date";
