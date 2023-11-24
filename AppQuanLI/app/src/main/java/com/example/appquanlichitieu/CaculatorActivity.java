@@ -163,4 +163,8 @@ public class CaculatorActivity extends AppCompatActivity {
     public void addOnclick(View view) {
         setTvWorking("+");
     }
+
+    public void zeroOnclick(View view) {
+        setTvWorking("0");
+    }
 }

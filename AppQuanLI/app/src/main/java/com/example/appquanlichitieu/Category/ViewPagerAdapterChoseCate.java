@@ -1,4 +1,4 @@
-package com.example.appquanlichitieu.Add;
+package com.example.appquanlichitieu.Category;
 
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;

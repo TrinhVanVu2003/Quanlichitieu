@@ -8,10 +8,15 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.example.appquanlichitieu.Add.DanhMuc;
+import com.example.appquanlichitieu.Category.Category;
+import com.example.appquanlichitieu.Transacion.Transacion;
 import com.example.appquanlichitieu.Wallet.Wallet;
 
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class MyDatabase {
     SQLiteDatabase database;
@@ -27,6 +32,27 @@ public class MyDatabase {
 
     }
 
+    public double getWalletBalance() {
+        double balance = 0.0;
+
+        // Tạo câu truy vấn để lấy số dư của ví
+        String query = "SELECT " + DBHelper.COT_BALANCE +
+                " FROM " + DBHelper.TEN_BANG_WALLET ;
+
+        Cursor cursor = database.rawQuery("SELECT * FROM " + DBHelper.TEN_BANG_WALLET, null);
+
+
+        // Kiểm tra xem có dữ liệu từ câu truy vấn không
+        if (cursor.moveToFirst()) {
+            balance = cursor.getDouble(cursor.getColumnIndex(DBHelper.COT_BALANCE));
+        }
+
+        // Đóng cursor và database để tránh leak
+        cursor.close();
+        database.close();
+
+        return balance;
+    }
     public double getTotalBalance() {
         double total = 0;
 
@@ -55,9 +81,9 @@ public class MyDatabase {
     }
 
 
-
+    // chuyển đổi tỷ giá
     private double getExchangeRate(String fromCurrency, String toCurrency) {
-        // Giả sử tỷ giá chuyển đổi
+        // giá theo google có thể tủy chỉnh tùy thích
         double usdToVndRate = 22000;
         double cnyToVndRate = 3300;
 
@@ -86,6 +112,54 @@ public class MyDatabase {
 
         database.insert(DBHelper.TEN_BANG_WALLET, null, values);
         database.close();
+    }
+    private void updateWalletBalance(int walletID, double amount, boolean isIncome) {
+        String operator = (isIncome) ? "+" : "-";
+        String updateQuery = "UPDATE " + DBHelper.TEN_BANG_WALLET +
+                " SET " + DBHelper.COT_BALANCE + " = " + DBHelper.COT_BALANCE + " " + operator + " " + amount +
+                " WHERE " + DBHelper.COT_WALLET_ID + " = " + walletID;
+
+        database.execSQL(updateQuery);
+    }
+    // thêm giao dịch
+    public void addTransacionToDatabase(Transacion transacion,String transactionType){
+        ContentValues values = new ContentValues();
+        values.put(DBHelper.COT_ID_GIAODICH, transacion.getTransacionID());
+        values.put(DBHelper.COT_AMOUNT, transacion.getAmount());
+        values.put(DBHelper.COT_GHICHU, transacion.getNote());
+        values.put(DBHelper.COT_DATE, transacion.getDate());
+        values.put(DBHelper.COT_CATE_ID, transacion.getCateID());
+        values.put(DBHelper.COT_WALLET_ID_TRANS, transacion.getTransWalletID());
+        values.put(DBHelper.COT_ID_USER_GD, transacion.getUserID());
+        values.put(DBHelper.COT_WALLET_NAMEE,transacion.getWalletName());
+        database.insert(DBHelper.TEN_BANG_GIAODICH,null,values);
+        if (transactionType.equals("Thu")) {
+            updateWalletBalance(transacion.getTransWalletID(), transacion.getAmount(), true);
+        } else if (transactionType.equals("Chi")) {
+            updateWalletBalance(transacion.getTransWalletID(), transacion.getAmount(), false);
+        }
+
+        database.close();
+    }
+    public void addCategories(List<Category> categories) {
+        ContentValues values = new ContentValues();
+
+        try {
+            for (Category category : categories) {
+                values.put(DBHelper.COT_ID_DANHMUC, category.getCategoryID());
+                values.put(DBHelper.COT_TENDANHMUC, category.getCategoryName());
+                values.put(DBHelper.COT_TYPE, category.getCategoryType());
+                values.put(DBHelper.COT_IMG_DANHMUC, category.getCategoryIMG());
+
+                database.insert(DBHelper.TEN_BANG_DANHMUC, null, values);
+
+                // Reset lại values để sử dụng cho danh mục tiếp theo
+                values.clear();
+            }
+        } finally {
+            // Đảm bảo rằng cơ sở dữ liệu được đóng ngay cả khi có lỗi
+            database.close();
+        }
     }
 
     // thêm dữ liệu
@@ -286,7 +360,7 @@ public class MyDatabase {
                 String walletName = cursor.getString(cursor.getColumnIndex(DBHelper.COT_WALLET_NAME));
                 String currency = cursor.getString(cursor.getColumnIndex(DBHelper.COT_CURRENCY_NAME));
                 String currencyCode = cursor.getString(cursor.getColumnIndex(DBHelper.COT_WALLET_CURRENCY_CODE));
-                String balance = cursor.getString(cursor.getColumnIndex(DBHelper.COT_BALANCE));
+                Double balance = cursor.getDouble(cursor.getColumnIndex(DBHelper.COT_BALANCE));
                 int userID = cursor.getInt(cursor.getColumnIndex(DBHelper.COT_USERID));
 
                 Wallet wallet = new Wallet(walletID, walletName, currency, currencyCode, balance, userID);
@@ -298,6 +372,21 @@ public class MyDatabase {
 
         return walletList;
     }
+    public int getMaxTransactionId() {
+        int maxId = 0;
+
+        String query = "SELECT MAX(" + DBHelper.COT_ID_GIAODICH + ") FROM " + DBHelper.TEN_BANG_GIAODICH;
+        Cursor cursor = database.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            maxId = cursor.getInt(0);
+        }
+
+        cursor.close();
+        return maxId;
+    }
+
+
 }
 
 

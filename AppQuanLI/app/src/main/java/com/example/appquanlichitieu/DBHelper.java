@@ -27,16 +27,20 @@ public class DBHelper extends SQLiteOpenHelper {
     //Cot bang giao dich
     public static final String COT_ID_GIAODICH = "id_giaodich";
     public static final String COT_CATEGORY = "_category";
+    public static final String COT_WALLET_NAMEE = "_walletnamee";
+
     public static final String COT_GHICHU = "_ghichu";
     public static final String COT_AMOUNT = "_amount";
     public static final String COT_DATE = "_date";
     public static final String COT_ID_USER_GD = "id_user_giaodich";
     public static final String COT_CATE_ID = "_CateID";
+    public static final String COT_WALLET_ID_TRANS = "_WalletIDtrans";
 
     //Cot bang danh muc
     public static final String COT_ID_DANHMUC ="id_danhmuc";
     public static final String COT_TENDANHMUC ="_tendanhmuc";
     public static final String COT_TYPE ="_type";
+    public static final String COT_IMG_DANHMUC ="_imgDanhmuc";
 
 
     //Cot bang vi
@@ -77,12 +81,15 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String TAO_BANG_GIAO_DICH = ""
             + "CREATE TABLE " + TEN_BANG_GIAODICH + " ( "
             + COT_ID_GIAODICH + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + COT_CATEGORY + " TEXT NOT NULL, "
             + COT_AMOUNT + " REAL, "
             + COT_GHICHU + " TEXT, "
+            + COT_WALLET_NAMEE + " text, "
             + COT_DATE + " TEXT, "
             + COT_CATE_ID + " INTEGER, "
             + COT_ID_USER_GD + " INTEGER, "
+            + COT_WALLET_ID_TRANS + " integer, "
+            + "foreign key (" + COT_WALLET_ID_TRANS + ") REFERENCES " + TEN_BANG_WALLET
+            + " (" + COT_WALLET_ID + "), "
             + "FOREIGN KEY (" + COT_CATE_ID + ") REFERENCES " + TEN_BANG_DANHMUC
             + " (" + COT_ID_DANHMUC + "), "
             + "FOREIGN KEY (" + COT_ID_USER_GD + ") REFERENCES " + TEN_BANG_USER
@@ -93,6 +100,7 @@ public class DBHelper extends SQLiteOpenHelper {
             + " create table " + TEN_BANG_DANHMUC + " ( "
             + COT_ID_DANHMUC + " integer primary key autoincrement, "
             + COT_TYPE + " text, "
+            + COT_IMG_DANHMUC + "integer, "
             + COT_TENDANHMUC + " text );";
 
     public static final String TAO_BANG_WALLET = ""

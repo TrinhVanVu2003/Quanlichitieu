@@ -5,9 +5,9 @@ public class Wallet {
     private String walletCurrency ;
     private String walletName;
     private String currencyCode;
-    private String balance;
+    private double balance;
     private int UserID;
-    public Wallet(int walletID,String walletName,String walletCurrency, String currencyCode, String balance, int UserID) {
+    public Wallet(int walletID,String walletName,String walletCurrency, String currencyCode, Double balance, int UserID) {
 
         this.walletID = walletID;
         this.walletName = walletName;
@@ -57,11 +57,11 @@ public class Wallet {
         this.currencyCode = currencyCode;
     }
 
-    public String getBalance() {
+    public Double getBalance() {
         return balance;
     }
 
-    public void setBalance(String balance) {
+    public void setBalance(Double balance) {
         this.balance = balance;
     }
 }

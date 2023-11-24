@@ -135,12 +135,24 @@ public class AddWalletActivity extends AppCompatActivity {
         String walletName = edtWalletName.getText().toString().trim();
         String currency = tvChonDonViTien.getText().toString().trim();
         String currencyCode = tvCurrencyCode.getText().toString().trim();
-        String balance = tvBalance.getText().toString().trim();
+
+        String balanceString = tvBalance.getText().toString().trim();
+        balanceString = balanceString.replace(",", "");
+
+        // Kiểm tra xem balanceString có thể chuyển đổi thành double không
+        double balance = 0.0;
+        try {
+            balance = Double.parseDouble(balanceString);
+        } catch (NumberFormatException e) {
+            // Xử lý khi có lỗi chuyển đổi
+            e.printStackTrace();
+            // Hiển thị thông báo lỗi hoặc thực hiện các xử lý khác
+        }
 
         int userID = userManager.getCurrentUserID();
         //id sẽ tăng lên khi thêm ví mới
         id++;
-        return new Wallet(id, walletName, currency, currencyCode, balance,userID);
+        return new Wallet(id, walletName, currency, currencyCode, balance, userID);
     }
 
 

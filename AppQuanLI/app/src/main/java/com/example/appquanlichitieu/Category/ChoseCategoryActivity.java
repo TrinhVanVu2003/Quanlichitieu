@@ -1,4 +1,4 @@
-package com.example.appquanlichitieu;
+package com.example.appquanlichitieu.Category;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -8,7 +8,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.appquanlichitieu.Add.ViewPagerAdapterChoseCate;
+import com.example.appquanlichitieu.Category.ViewPagerAdapterChoseCate;
+import com.example.appquanlichitieu.R;
 
 public class ChoseCategoryActivity extends AppCompatActivity {
     ImageView imgBack;

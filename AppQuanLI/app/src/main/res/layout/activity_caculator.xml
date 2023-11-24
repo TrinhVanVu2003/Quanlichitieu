@@ -243,6 +243,7 @@
                 android:text="3"
                 />
             <Button
+                android:onClick="zeroOnclick"
                 android:textSize="@dimen/calcbuttonTextSize"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"

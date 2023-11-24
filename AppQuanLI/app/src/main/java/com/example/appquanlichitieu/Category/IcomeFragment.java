@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.appquanlichitieu.MyDatabase;
 import com.example.appquanlichitieu.R;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class IcomeFragment extends Fragment {
 
     private RecyclerView rcvIncome;
     private IncomeAdapter incomeAdapter;
+    MyDatabase database;
     public IcomeFragment() {
     }
 
@@ -44,18 +46,26 @@ public class IcomeFragment extends Fragment {
     public void onCateIncomeItemClick(Category category){
         // Xử lý khi một khoản thu được chọn
         Intent resultIntent = new Intent();
+        resultIntent.putExtra("selectedCategoryID", category.getCategoryID());
         resultIntent.putExtra("IncomeName", category.getCategoryName());
         resultIntent.putExtra("IncomeIMG", category.getCategoryIMG());
+        resultIntent.putExtra("categoryType", category.getCategoryType());
 
         // Đặt kết quả và kết thúc Fragment
         getActivity().setResult(Activity.RESULT_OK, resultIntent);
         getActivity().finish();
+
     }
 
     private List<Category> getListIncomeCate(){
         List<Category> list = new ArrayList<>();
         list.add(new Category(1,R.drawable.img_salary,"Lương","Khoản thu"));
         list.add(new Category(1,R.drawable.img_sell,"Bán xe","Khoản thu"));
+        if (database != null) {
+            database.addCategories(list);
+        } else {
+
+        }
         return list;
     }
 }
