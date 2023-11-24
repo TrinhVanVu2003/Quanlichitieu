@@ -121,6 +121,14 @@ public class MyDatabase {
 
         database.execSQL(updateQuery);
     }
+    private void updateWalletBalanceChi(int walletID, double amount, boolean isIncome) {
+        String operator =  "-";
+        String updateQuery = "UPDATE " + DBHelper.TEN_BANG_WALLET +
+                " SET " + DBHelper.COT_BALANCE + " = " + DBHelper.COT_BALANCE + " " + operator + " " + amount +
+                " WHERE " + DBHelper.COT_WALLET_ID + " = " + walletID;
+
+        database.execSQL(updateQuery);
+    }
     // thêm giao dịch
     public void addTransacionToDatabase(Transacion transacion,String transactionType){
         ContentValues values = new ContentValues();
@@ -135,8 +143,8 @@ public class MyDatabase {
         database.insert(DBHelper.TEN_BANG_GIAODICH,null,values);
         if (transactionType.equals("Thu")) {
             updateWalletBalance(transacion.getTransWalletID(), transacion.getAmount(), true);
-        } else if (transactionType.equals("Chi")) {
-            updateWalletBalance(transacion.getTransWalletID(), transacion.getAmount(), false);
+        } else {
+            updateWalletBalanceChi(transacion.getTransWalletID(), transacion.getAmount(), false);
         }
 
         database.close();

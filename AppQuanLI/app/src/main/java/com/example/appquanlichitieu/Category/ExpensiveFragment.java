@@ -44,8 +44,8 @@ public class ExpensiveFragment extends Fragment {
     public void onCateExpensiveItemClick(Category category){
         // Xử lý khi một khoản thu được chọn
         Intent resultIntent = new Intent();
-        resultIntent.putExtra("IcomeName", category.getCategoryName());
-        resultIntent.putExtra("IcomeIMG", category.getCategoryIMG());
+        resultIntent.putExtra("ExpenseName", category.getCategoryName());
+        resultIntent.putExtra("ExpenseIMG", category.getCategoryIMG());
 
         // Đặt kết quả và kết thúc Fragment
         getActivity().setResult(Activity.RESULT_OK, resultIntent);

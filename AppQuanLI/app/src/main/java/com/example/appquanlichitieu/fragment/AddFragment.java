@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,13 +33,14 @@ import java.util.Locale;
 
 
 public class AddFragment extends Fragment implements DatePickerDialog.OnDateSetListener{
-    TextView tvChonCate,tvBalanceTranc , tvChonWallet, tvChonTime , tvNote, tvBalance;
+    TextView tvChonCate,tvBalanceTranc , tvChonWallet, tvChonTime , tvNote, tvBalance, tvDanhMucKhoanChi;
+    ImageView tvAnhKhoanChi;
     View mView;
     Button btnThemGiaoDich;
     private static int id = 0;
 
     private UserManager userManager;
-    private String transactionType; // Thêm biến để lưu loại giao dịch
+    private String transactionType;
 
     private static final int REQUEST_CODE_CALCULATOR = 1;
     private static final int REQUEST_CODE_SELECT_CATEGORY = 2;
@@ -104,34 +106,41 @@ public class AddFragment extends Fragment implements DatePickerDialog.OnDateSetL
     //xử lí kết quả của Category
     private void handleCategoryActivityResult(Intent data) {
         if (data != null) {
-
             String categoryType = data.getStringExtra("categoryType");
-            String CateName = data.getStringExtra("IncomeName");
-            int incomeImg = data.getIntExtra("IncomeIMG", 0);
-            int categoryID = data.getIntExtra("selectedCategoryID",0);
-            selectedCategoryID = categoryID;
+            int categoryID = data.getIntExtra("selectedCategoryID", 0);
 
             int color;
             if ("Khoản thu".equals(categoryType)) {
                 transactionType = "Thu";
                 color = getResources().getColor(R.color.xanh);
-            } else if ("Khoản chi".equals(categoryType)) {
+            } else {
                 transactionType = "Chi";
                 color = getResources().getColor(R.color.RED);
-            } else {
-                // Màu mặc định nếu không xác định được loại
-                color = getResources().getColor(R.color.black);
             }
+
             // áp dụng màu
             tvBalanceTranc.setTextColor(color);
 
             TextView tvChonCate = mView.findViewById(R.id.tvChonCate);
             ImageView imgCate = mView.findViewById(R.id.imgCate);
-            tvChonCate.setText(CateName);
-            imgCate.setImageResource(incomeImg);
 
+            // Thay đổi giá trị dựa trên loại danh mục
+            if ("Khoản thu".equals(categoryType)) {
+                String categoryName = data.getStringExtra("IncomeName");
+                int categoryImage = data.getIntExtra("IncomeIMG", 0);
+                tvChonCate.setText(categoryName);
+                imgCate.setImageResource(categoryImage);
+            } else {
+                String categoryName = data.getStringExtra("ExpenseName");
+                int categoryImage = data.getIntExtra("ExpenseIMG", 0);
+                tvChonCate.setText(categoryName);
+                imgCate.setImageResource(categoryImage);
+            }
+
+            selectedCategoryID = categoryID;
         }
     }
+
     //xử lí kết quả của Calculator
     private void handleCalculatorActivityResult(Intent data) {
         if (data != null) {
